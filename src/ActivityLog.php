@@ -43,7 +43,7 @@ class ActivityLog
         $options = ['http_errors' => false];
         $options = array_merge_recursive($options, Utils\Utils::getQueryParams($request->queryParams));
         
-        $httpResponse = $this->_defaultClient->request('GET', $url, $options);
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 

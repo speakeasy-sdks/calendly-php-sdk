@@ -47,8 +47,7 @@ class Shares
         }
         $options = array_merge_recursive($options, $body);
         
-        $client = Utils\Utils::configureSecurityClient($this->_defaultClient, $request->security);
-        $httpResponse = $client->request('POST', $url, $options);
+        $httpResponse = $this->_securityClient->request('POST', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 

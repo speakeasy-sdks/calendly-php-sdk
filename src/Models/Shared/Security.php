@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace calendly\calendly\Models\Operations;
+namespace calendly\calendly\Models\Shared;
 
 use \calendly\calendly\Utils\SpeakeasyMetadata;
 
-class PostDataComplianceDeletionInviteesSecurity
+class Security
 {
     #[SpeakeasyMetadata('security:scheme=true,type=oauth2')]
-    public ?\calendly\calendly\Models\Shared\SchemeOauth2 $oauth2 = null;
+    public ?SchemeOauth2 $oauth2 = null;
     
     #[SpeakeasyMetadata('security:scheme=true,type=http,subtype=bearer')]
-    public ?\calendly\calendly\Models\Shared\SchemePersonalAccessToken $personalAccessToken = null;
+    public ?SchemePersonalAccessToken $personalAccessToken = null;
     
 	public function __construct()
 	{

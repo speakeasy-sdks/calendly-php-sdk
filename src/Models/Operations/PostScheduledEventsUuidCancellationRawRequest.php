@@ -13,12 +13,9 @@ class PostScheduledEventsUuidCancellationRawRequest
     #[SpeakeasyMetadata('request:mediaType=application/xml')]
     public ?string $request = null;
     
-    public PostScheduledEventsUuidCancellationSecurity $security;
-    
 	public function __construct()
 	{
 		$this->pathParams = new \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationPathParams();
 		$this->request = null;
-		$this->security = new \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationSecurity();
 	}
 }

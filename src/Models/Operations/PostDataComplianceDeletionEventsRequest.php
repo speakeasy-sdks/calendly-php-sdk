@@ -11,11 +11,8 @@ class PostDataComplianceDeletionEventsRequest
     #[SpeakeasyMetadata('request:mediaType=application/json')]
     public PostDataComplianceDeletionEventsRequestBody $request;
     
-    public PostDataComplianceDeletionEventsSecurity $security;
-    
 	public function __construct()
 	{
 		$this->request = new \calendly\calendly\Models\Operations\PostDataComplianceDeletionEventsRequestBody();
-		$this->security = new \calendly\calendly\Models\Operations\PostDataComplianceDeletionEventsSecurity();
 	}
 }

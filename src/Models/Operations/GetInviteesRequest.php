@@ -12,12 +12,9 @@ class GetInviteesRequest
     
     public GetInviteesQueryParams $queryParams;
     
-    public GetInviteesSecurity $security;
-    
 	public function __construct()
 	{
 		$this->pathParams = new \calendly\calendly\Models\Operations\GetInviteesPathParams();
 		$this->queryParams = new \calendly\calendly\Models\Operations\GetInviteesQueryParams();
-		$this->security = new \calendly\calendly\Models\Operations\GetInviteesSecurity();
 	}
 }

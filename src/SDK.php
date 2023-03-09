@@ -32,10 +32,10 @@ class SDK
 	// SDK private variables namespaced with _ to avoid conflicts with API models
 	private ?\GuzzleHttp\ClientInterface $_defaultClient;
 	private ?\GuzzleHttp\ClientInterface $_securityClient;
-	
+	private ?Models\Shared\Security $_security;
 	private string $_serverUrl;
 	private string $_language = "php";
-	private string $_sdkVersion = "0.1.0";
+	private string $_sdkVersion = "0.0.1";
 	private string $_genVersion = "1.9.1";
 
 	public static function builder(): SDKBuilder
@@ -44,11 +44,12 @@ class SDK
 	}
 
 	/**
-	 * @param \GuzzleHttp\ClientInterface|null $client
+	 * @param \GuzzleHttp\ClientInterface|null $client	 
+	 * @param Models\Shared\Security|null $security
 	 * @param string $serverUrl
 	 * @param array<string, string>|null $params
 	 */
-	public function __construct(?\GuzzleHttp\ClientInterface $client, string $serverUrl, ?array $params)
+	public function __construct(?\GuzzleHttp\ClientInterface $client, ?Models\Shared\Security $security, string $serverUrl, ?array $params)
 	{
 		$this->_defaultClient = $client;
 		
@@ -59,6 +60,11 @@ class SDK
 		}
 
 		$this->_securityClient = null;
+		if ($security !== null) {
+			$this->_security = $security;
+			$this->_securityClient = Utils\Utils::configureSecurityClient($this->_defaultClient, $this->_security);
+		}
+		
 		if ($this->_securityClient === null) {
 			$this->_securityClient = $this->_defaultClient;
 		}

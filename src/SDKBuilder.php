@@ -7,14 +7,14 @@ namespace calendly\calendly;
 class SDKBuilder
 {
     private ?\GuzzleHttp\ClientInterface $client;
-    
+    private ?Models\Shared\Security $security;
     private string $serverUrl;
     /** @var array<string, string> */
     private ?array $params;
 
     public function __construct() {
         $this->client = null;
-        
+        $this->security = null;
         $this->serverUrl = '';
         $this->params = null;
     }
@@ -22,6 +22,12 @@ class SDKBuilder
     public function setClient(\GuzzleHttp\ClientInterface $client): SDKBuilder
     {
         $this->client = $client;
+        return $this;
+    }
+    
+    public function setSecurity(Models\Shared\Security $security): SDKBuilder
+    {
+        $this->security = $security;
         return $this;
     }
     
@@ -42,6 +48,6 @@ class SDKBuilder
     
     public function build(): SDK
     {
-        return new SDK($this->client, $this->serverUrl, $this->params);
+        return new SDK($this->client, $this->security, $this->serverUrl, $this->params);
     }
 }

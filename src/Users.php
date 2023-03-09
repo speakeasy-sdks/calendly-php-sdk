@@ -32,7 +32,6 @@ class Users
      * Returns basic information about your user account.
     */
     public function getMyUserAccount(
-        \calendly\calendly\Models\Operations\GetMyUserAccountRequest $request,
     ): \calendly\calendly\Models\Operations\GetMyUserAccountResponse
     {
         $baseUrl = $this->_serverUrl;
@@ -40,8 +39,7 @@ class Users
         
         $options = ['http_errors' => false];
         
-        $client = Utils\Utils::configureSecurityClient($this->_defaultClient, $request->security);
-        $httpResponse = $client->request('GET', $url, $options);
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
@@ -98,8 +96,7 @@ class Users
         
         $options = ['http_errors' => false];
         
-        $client = Utils\Utils::configureSecurityClient($this->_defaultClient, $request->security);
-        $httpResponse = $client->request('GET', $url, $options);
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 

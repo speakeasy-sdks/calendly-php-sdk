@@ -43,8 +43,7 @@ class RoutingForms
         $options = ['http_errors' => false];
         $options = array_merge_recursive($options, Utils\Utils::getQueryParams($request->queryParams));
         
-        $client = Utils\Utils::configureSecurityClient($this->_defaultClient, $request->security);
-        $httpResponse = $client->request('GET', $url, $options);
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
@@ -107,8 +106,7 @@ class RoutingForms
         
         $options = ['http_errors' => false];
         
-        $client = Utils\Utils::configureSecurityClient($this->_defaultClient, $request->security);
-        $httpResponse = $client->request('GET', $url, $options);
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
@@ -172,8 +170,7 @@ class RoutingForms
         $options = ['http_errors' => false];
         $options = array_merge_recursive($options, Utils\Utils::getQueryParams($request->queryParams));
         
-        $client = Utils\Utils::configureSecurityClient($this->_defaultClient, $request->security);
-        $httpResponse = $client->request('GET', $url, $options);
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
@@ -236,8 +233,7 @@ class RoutingForms
         
         $options = ['http_errors' => false];
         
-        $client = Utils\Utils::configureSecurityClient($this->_defaultClient, $request->security);
-        $httpResponse = $client->request('GET', $url, $options);
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 

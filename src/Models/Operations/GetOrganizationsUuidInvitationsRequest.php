@@ -12,12 +12,9 @@ class GetOrganizationsUuidInvitationsRequest
     
     public GetOrganizationsUuidInvitationsQueryParams $queryParams;
     
-    public GetOrganizationsUuidInvitationsSecurity $security;
-    
 	public function __construct()
 	{
 		$this->pathParams = new \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsPathParams();
 		$this->queryParams = new \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsQueryParams();
-		$this->security = new \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsSecurity();
 	}
 }

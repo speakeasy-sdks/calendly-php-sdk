@@ -16,12 +16,9 @@ class PostScheduledEventsUuidCancellationMultipartRequest
     #[SpeakeasyMetadata('request:mediaType=multipart/form-data')]
     public ?array $request = null;
     
-    public PostScheduledEventsUuidCancellationSecurity $security;
-    
 	public function __construct()
 	{
 		$this->pathParams = new \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationPathParams();
 		$this->request = null;
-		$this->security = new \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationSecurity();
 	}
 }

@@ -10,11 +10,8 @@ class GetUserAvailabilitySchedulesRequest
 {
     public GetUserAvailabilitySchedulesQueryParams $queryParams;
     
-    public GetUserAvailabilitySchedulesSecurity $security;
-    
 	public function __construct()
 	{
 		$this->queryParams = new \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesQueryParams();
-		$this->security = new \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesSecurity();
 	}
 }
