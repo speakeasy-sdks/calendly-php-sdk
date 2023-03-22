@@ -249,6 +249,7 @@ src/Models/Operations/PostInviteeNoShowErrorResponseDetails.php
 src/Models/Operations/PostInviteeNoShowErrorResponse.php
 src/Models/Operations/PostInviteeNoShow201ApplicationJSON.php
 src/Models/Operations/PostInviteeNoShowResponse.php
+src/Models/Operations/PostSchedulingLinksRequestBodyMaxEventCountEnum.php
 src/Models/Operations/PostSchedulingLinksRequestBodyOwnerTypeEnum.php
 src/Models/Operations/PostSchedulingLinksRequestBody.php
 src/Models/Operations/PostSchedulingLinksRequest.php

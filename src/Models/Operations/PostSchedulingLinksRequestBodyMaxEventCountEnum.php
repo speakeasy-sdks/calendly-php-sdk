@@ -9,7 +9,8 @@ declare(strict_types=1);
 namespace calendly\calendly\Models\Operations;
 
 
-enum PostScheduledEventsUuidCancellationMultipart403ApplicationJSONTitleEnum: string
+/** The max number of events that can be scheduled using this scheduling link. */
+enum PostSchedulingLinksRequestBodyMaxEventCountEnum: string
 {
-    case PERMISSION_DENIED = 'Permission Denied';
+    case ONE = '1';
 }
