@@ -8,14 +8,28 @@ declare(strict_types=1);
 
 namespace calendly\calendly\Models\Operations;
 
-
+use \calendly\calendly\Utils\SpeakeasyMetadata;
 class RevokeUsersOrganizationInvitationRequest
 {
-	
-    public RevokeUsersOrganizationInvitationPathParams $pathParams;
+    /**
+     * The organization’s unique identifier
+     * 
+     * @var string $orgUuid
+     */
+	#[SpeakeasyMetadata('pathParam:style=simple,explode=false,name=org_uuid')]
+    public string $orgUuid;
+    
+    /**
+     * The organization invitation's unique identifier
+     * 
+     * @var string $uuid
+     */
+	#[SpeakeasyMetadata('pathParam:style=simple,explode=false,name=uuid')]
+    public string $uuid;
     
 	public function __construct()
 	{
-		$this->pathParams = new \calendly\calendly\Models\Operations\RevokeUsersOrganizationInvitationPathParams();
+		$this->orgUuid = "";
+		$this->uuid = "";
 	}
 }

@@ -8,18 +8,59 @@ declare(strict_types=1);
 
 namespace calendly\calendly\Models\Operations;
 
-
+use \calendly\calendly\Utils\SpeakeasyMetadata;
 class GetInviteesRequest
 {
-	
-    public GetInviteesPathParams $pathParams;
+    /**
+     * The number of rows to return
+     * 
+     * @var ?float $count
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=count')]
+    public ?float $count = null;
     
-	
-    public GetInviteesQueryParams $queryParams;
+    /**
+     * Indicates if the results should be filtered by email address
+     * 
+     * @var ?string $email
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=email')]
+    public ?string $email = null;
+    
+    /**
+     * The token to pass to get the next or previous portion of the collection
+     * 
+     * @var ?string $pageToken
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=page_token')]
+    public ?string $pageToken = null;
+    
+    /**
+     * Order results by the **created_at** field and direction specified: ascending ("asc") or descending ("desc")
+     * 
+     * @var ?string $sort
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=sort')]
+    public ?string $sort = null;
+    
+    /**
+     * Indicates if the invitee "canceled" or still "active"
+     * 
+     * @var ?\calendly\calendly\Models\Operations\GetInviteesStatusEnum $status
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=status')]
+    public ?GetInviteesStatusEnum $status = null;
+    
+	#[SpeakeasyMetadata('pathParam:style=simple,explode=false,name=uuid')]
+    public string $uuid;
     
 	public function __construct()
 	{
-		$this->pathParams = new \calendly\calendly\Models\Operations\GetInviteesPathParams();
-		$this->queryParams = new \calendly\calendly\Models\Operations\GetInviteesQueryParams();
+		$this->count = null;
+		$this->email = null;
+		$this->pageToken = null;
+		$this->sort = null;
+		$this->status = null;
+		$this->uuid = "";
 	}
 }

@@ -90,7 +90,7 @@ class Users
     ): \calendly\calendly\Models\Operations\GetUserResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/users/{uuid}', \calendly\calendly\Models\Operations\GetUserPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/users/{uuid}', \calendly\calendly\Models\Operations\GetUserRequest::class, $request);
         
         $options = ['http_errors' => false];
         

@@ -8,14 +8,19 @@ declare(strict_types=1);
 
 namespace calendly\calendly\Models\Operations;
 
-
+use \calendly\calendly\Utils\SpeakeasyMetadata;
 class GetUserAvailabilitySchedulesRequest
 {
-	
-    public GetUserAvailabilitySchedulesQueryParams $queryParams;
+    /**
+     * A URI reference to a user
+     * 
+     * @var ?string $user
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=user')]
+    public ?string $user = null;
     
 	public function __construct()
 	{
-		$this->queryParams = new \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesQueryParams();
+		$this->user = null;
 	}
 }

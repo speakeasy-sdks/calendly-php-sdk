@@ -11,20 +11,25 @@ namespace calendly\calendly\Models\Operations;
 use \calendly\calendly\Utils\SpeakeasyMetadata;
 class PostScheduledEventsUuidCancellationJsonRequest
 {
-	
-    public PostScheduledEventsUuidCancellationPathParams $pathParams;
-    
     /**
      * Optional cancellation reason.
      * 
-     * @var ?\calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationApplicationJSON $request
+     * @var ?\calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationApplicationJSON $requestBody
      */
 	#[SpeakeasyMetadata('request:mediaType=application/json')]
-    public ?PostScheduledEventsUuidCancellationApplicationJSON $request = null;
+    public ?PostScheduledEventsUuidCancellationApplicationJSON $requestBody = null;
+    
+    /**
+     * The event's unique indentifier
+     * 
+     * @var string $uuid
+     */
+	#[SpeakeasyMetadata('pathParam:style=simple,explode=false,name=uuid')]
+    public string $uuid;
     
 	public function __construct()
 	{
-		$this->pathParams = new \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationPathParams();
-		$this->request = null;
+		$this->requestBody = null;
+		$this->uuid = "";
 	}
 }

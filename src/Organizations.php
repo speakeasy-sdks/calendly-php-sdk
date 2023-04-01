@@ -56,7 +56,7 @@ class Organizations
     ): \calendly\calendly\Models\Operations\DeleteOrganizationsUuidMembershipsResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/organization_memberships/{uuid}', \calendly\calendly\Models\Operations\DeleteOrganizationsUuidMembershipsPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/organization_memberships/{uuid}', \calendly\calendly\Models\Operations\DeleteOrganizationsUuidMembershipsRequest::class, $request);
         
         $options = ['http_errors' => false];
         
@@ -109,7 +109,7 @@ class Organizations
         $url = Utils\Utils::generateUrl($baseUrl, '/organization_memberships');
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetOrganizationMembershipsQueryParams::class, $request->queryParams, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetOrganizationMembershipsRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
@@ -155,7 +155,7 @@ class Organizations
     ): \calendly\calendly\Models\Operations\GetOrganizationsOrgUuidInvitationsUuidResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/organizations/{org_uuid}/invitations/{uuid}', \calendly\calendly\Models\Operations\GetOrganizationsOrgUuidInvitationsUuidPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/organizations/{org_uuid}/invitations/{uuid}', \calendly\calendly\Models\Operations\GetOrganizationsOrgUuidInvitationsUuidRequest::class, $request);
         
         $options = ['http_errors' => false];
         
@@ -197,10 +197,10 @@ class Organizations
     ): \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/organizations/{uuid}/invitations', \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/organizations/{uuid}/invitations', \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsRequest::class, $request);
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsQueryParams::class, $request->queryParams, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
@@ -240,7 +240,7 @@ class Organizations
     ): \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/organization_memberships/{uuid}', \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/organization_memberships/{uuid}', \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsRequest::class, $request);
         
         $options = ['http_errors' => false];
         
@@ -289,10 +289,10 @@ class Organizations
     ): \calendly\calendly\Models\Operations\PostOrganizationsUuidInvitationsResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/organizations/{uuid}/invitations', \calendly\calendly\Models\Operations\PostOrganizationsUuidInvitationsPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/organizations/{uuid}/invitations', \calendly\calendly\Models\Operations\PostOrganizationsUuidInvitationsRequest::class, $request);
         
         $options = ['http_errors' => false];
-        $body = Utils\Utils::serializeRequestBody($request, "request", "json");
+        $body = Utils\Utils::serializeRequestBody($request, "requestBody", "json");
         if ($body === null) {
             throw new \Exception('Request body is required');
         }
@@ -348,7 +348,7 @@ class Organizations
     ): \calendly\calendly\Models\Operations\RevokeUsersOrganizationInvitationResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/organizations/{org_uuid}/invitations/{uuid}', \calendly\calendly\Models\Operations\RevokeUsersOrganizationInvitationPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/organizations/{org_uuid}/invitations/{uuid}', \calendly\calendly\Models\Operations\RevokeUsersOrganizationInvitationRequest::class, $request);
         
         $options = ['http_errors' => false];
         

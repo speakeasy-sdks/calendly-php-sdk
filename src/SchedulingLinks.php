@@ -42,11 +42,11 @@ class SchedulingLinks
      * 
      * Creates a single-use scheduling link.
      * 
-     * @param \calendly\calendly\Models\Operations\PostSchedulingLinksRequest $request
+     * @param \calendly\calendly\Models\Operations\PostSchedulingLinksRequestBody $request
      * @return \calendly\calendly\Models\Operations\PostSchedulingLinksResponse
      */
 	public function postSchedulingLinks(
-        \calendly\calendly\Models\Operations\PostSchedulingLinksRequest $request,
+        \calendly\calendly\Models\Operations\PostSchedulingLinksRequestBody $request,
     ): \calendly\calendly\Models\Operations\PostSchedulingLinksResponse
     {
         $baseUrl = $this->_serverUrl;

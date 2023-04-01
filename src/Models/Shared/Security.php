@@ -11,11 +11,11 @@ namespace calendly\calendly\Models\Shared;
 use \calendly\calendly\Utils\SpeakeasyMetadata;
 class Security
 {
-	#[SpeakeasyMetadata('security:scheme=true,type=oauth2')]
-    public ?SchemeOauth2 $oauth2 = null;
+	#[SpeakeasyMetadata('security:scheme=true,type=oauth2,name=Authorization')]
+    public ?string $oauth2 = null;
     
-	#[SpeakeasyMetadata('security:scheme=true,type=http,subtype=bearer')]
-    public ?SchemePersonalAccessToken $personalAccessToken = null;
+	#[SpeakeasyMetadata('security:scheme=true,type=http,subtype=bearer,name=Authorization')]
+    public ?string $personalAccessToken = null;
     
 	public function __construct()
 	{

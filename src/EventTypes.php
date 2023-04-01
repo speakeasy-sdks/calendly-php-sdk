@@ -50,7 +50,7 @@ class EventTypes
     ): \calendly\calendly\Models\Operations\GetEventTypesUuidResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/event_types/{uuid}', \calendly\calendly\Models\Operations\GetEventTypesUuidPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/event_types/{uuid}', \calendly\calendly\Models\Operations\GetEventTypesUuidRequest::class, $request);
         
         $options = ['http_errors' => false];
         
@@ -100,7 +100,7 @@ class EventTypes
         $url = Utils\Utils::generateUrl($baseUrl, '/event_type_available_times');
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetEventTypeAvailableTimesQueryParams::class, $request->queryParams, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetEventTypeAvailableTimesRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
@@ -149,7 +149,7 @@ class EventTypes
         $url = Utils\Utils::generateUrl($baseUrl, '/event_types');
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetEventTypesQueryParams::class, $request->queryParams, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetEventTypesRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         

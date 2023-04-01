@@ -8,14 +8,46 @@ declare(strict_types=1);
 
 namespace calendly\calendly\Models\Operations;
 
-
+use \calendly\calendly\Utils\SpeakeasyMetadata;
 class GetRoutingFormSubmissionsRequest
 {
-	
-    public GetRoutingFormSubmissionsQueryParams $queryParams;
+    /**
+     * The number of rows to return
+     * 
+     * @var ?float $count
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=count')]
+    public ?float $count = null;
+    
+    /**
+     * View routing form submissions associated with the routing form's URI.
+     * 
+     * @var string $form
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=form')]
+    public string $form;
+    
+    /**
+     * The token to pass to get the next or previous portion of the collection
+     * 
+     * @var ?string $pageToken
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=page_token')]
+    public ?string $pageToken = null;
+    
+    /**
+     * Order results by the specified field and direction. Accepts comma-separated list of {field}:{direction} values. Supported fields are: created_at. Sort direction is specified as: asc, desc.
+     * 
+     * @var ?string $sort
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=sort')]
+    public ?string $sort = null;
     
 	public function __construct()
 	{
-		$this->queryParams = new \calendly\calendly\Models\Operations\GetRoutingFormSubmissionsQueryParams();
+		$this->count = null;
+		$this->form = "";
+		$this->pageToken = null;
+		$this->sort = null;
 	}
 }

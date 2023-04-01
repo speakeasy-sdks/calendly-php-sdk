@@ -53,7 +53,7 @@ class Availability
         $url = Utils\Utils::generateUrl($baseUrl, '/user_availability_schedules');
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesQueryParams::class, $request->queryParams, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
@@ -99,7 +99,7 @@ class Availability
     ): \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesUuidResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/user_availability_schedules/{uuid}', \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesUuidPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/user_availability_schedules/{uuid}', \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesUuidRequest::class, $request);
         
         $options = ['http_errors' => false];
         
@@ -158,7 +158,7 @@ class Availability
         $url = Utils\Utils::generateUrl($baseUrl, '/user_busy_times');
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetUserBusyTimesQueryParams::class, $request->queryParams, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetUserBusyTimesRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         

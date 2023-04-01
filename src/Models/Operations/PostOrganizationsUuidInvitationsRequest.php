@@ -11,15 +11,20 @@ namespace calendly\calendly\Models\Operations;
 use \calendly\calendly\Utils\SpeakeasyMetadata;
 class PostOrganizationsUuidInvitationsRequest
 {
-	
-    public PostOrganizationsUuidInvitationsPathParams $pathParams;
-    
 	#[SpeakeasyMetadata('request:mediaType=application/json')]
-    public PostOrganizationsUuidInvitationsRequestBody $request;
+    public PostOrganizationsUuidInvitationsRequestBody $requestBody;
+    
+    /**
+     * The organization's unique identifier
+     * 
+     * @var string $uuid
+     */
+	#[SpeakeasyMetadata('pathParam:style=simple,explode=false,name=uuid')]
+    public string $uuid;
     
 	public function __construct()
 	{
-		$this->pathParams = new \calendly\calendly\Models\Operations\PostOrganizationsUuidInvitationsPathParams();
-		$this->request = new \calendly\calendly\Models\Operations\PostOrganizationsUuidInvitationsRequestBody();
+		$this->requestBody = new \calendly\calendly\Models\Operations\PostOrganizationsUuidInvitationsRequestBody();
+		$this->uuid = "";
 	}
 }

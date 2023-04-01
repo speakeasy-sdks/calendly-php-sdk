@@ -50,7 +50,7 @@ class Webhooks
     ): \calendly\calendly\Models\Operations\DeleteUsersUserUuidWebhooksWebhookUuidResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/webhook_subscriptions/{webhook_uuid}', \calendly\calendly\Models\Operations\DeleteUsersUserUuidWebhooksWebhookUuidPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/webhook_subscriptions/{webhook_uuid}', \calendly\calendly\Models\Operations\DeleteUsersUserUuidWebhooksWebhookUuidRequest::class, $request);
         
         $options = ['http_errors' => false];
         
@@ -88,7 +88,7 @@ class Webhooks
     ): \calendly\calendly\Models\Operations\GetUsersUserUuidWebhooksWebhookUuidResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/webhook_subscriptions/{webhook_uuid}', \calendly\calendly\Models\Operations\GetUsersUserUuidWebhooksWebhookUuidPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/webhook_subscriptions/{webhook_uuid}', \calendly\calendly\Models\Operations\GetUsersUserUuidWebhooksWebhookUuidRequest::class, $request);
         
         $options = ['http_errors' => false];
         
@@ -133,7 +133,7 @@ class Webhooks
         $url = Utils\Utils::generateUrl($baseUrl, '/webhook_subscriptions');
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetWebhooksQueryParams::class, $request->queryParams, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetWebhooksRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
@@ -180,11 +180,11 @@ class Webhooks
      * | <pre>invitee.canceled</pre> | `organization` `user` |
      * | <pre>routing_form_submission.created</pre> | `organization` <br /> <small>Create separate Webhook Subscriptions for events with different subscription scopes.</small> |
      * 
-     * @param \calendly\calendly\Models\Operations\PostUsersUuidWebhooksRequest $request
+     * @param \calendly\calendly\Models\Operations\PostUsersUuidWebhooksRequestBody $request
      * @return \calendly\calendly\Models\Operations\PostUsersUuidWebhooksResponse
      */
 	public function postUsersUuidWebhooks(
-        \calendly\calendly\Models\Operations\PostUsersUuidWebhooksRequest $request,
+        \calendly\calendly\Models\Operations\PostUsersUuidWebhooksRequestBody $request,
     ): \calendly\calendly\Models\Operations\PostUsersUuidWebhooksResponse
     {
         $baseUrl = $this->_serverUrl;

@@ -8,14 +8,28 @@ declare(strict_types=1);
 
 namespace calendly\calendly\Models\Operations;
 
-
+use \calendly\calendly\Utils\SpeakeasyMetadata;
 class GetScheduledEventsEventUuidInviteesInviteeUuidRequest
 {
-	
-    public GetScheduledEventsEventUuidInviteesInviteeUuidPathParams $pathParams;
+    /**
+     * The event's unique identifier
+     * 
+     * @var string $eventUuid
+     */
+	#[SpeakeasyMetadata('pathParam:style=simple,explode=false,name=event_uuid')]
+    public string $eventUuid;
+    
+    /**
+     * The invitee's unique identifier
+     * 
+     * @var string $inviteeUuid
+     */
+	#[SpeakeasyMetadata('pathParam:style=simple,explode=false,name=invitee_uuid')]
+    public string $inviteeUuid;
     
 	public function __construct()
 	{
-		$this->pathParams = new \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidPathParams();
+		$this->eventUuid = "";
+		$this->inviteeUuid = "";
 	}
 }

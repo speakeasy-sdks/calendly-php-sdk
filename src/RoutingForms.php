@@ -53,7 +53,7 @@ class RoutingForms
         $url = Utils\Utils::generateUrl($baseUrl, '/routing_form_submissions');
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetRoutingFormSubmissionsQueryParams::class, $request->queryParams, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetRoutingFormSubmissionsRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
@@ -93,7 +93,7 @@ class RoutingForms
     ): \calendly\calendly\Models\Operations\GetRoutingFormSubmissionsUuidResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/routing_form_submissions/{uuid}', \calendly\calendly\Models\Operations\GetRoutingFormSubmissionsUuidPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/routing_form_submissions/{uuid}', \calendly\calendly\Models\Operations\GetRoutingFormSubmissionsUuidRequest::class, $request);
         
         $options = ['http_errors' => false];
         
@@ -138,7 +138,7 @@ class RoutingForms
         $url = Utils\Utils::generateUrl($baseUrl, '/routing_forms');
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetRoutingFormsQueryParams::class, $request->queryParams, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetRoutingFormsRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
@@ -178,7 +178,7 @@ class RoutingForms
     ): \calendly\calendly\Models\Operations\GetRoutingFormsUuidResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/routing_forms/{uuid}', \calendly\calendly\Models\Operations\GetRoutingFormsUuidPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/routing_forms/{uuid}', \calendly\calendly\Models\Operations\GetRoutingFormsUuidRequest::class, $request);
         
         $options = ['http_errors' => false];
         

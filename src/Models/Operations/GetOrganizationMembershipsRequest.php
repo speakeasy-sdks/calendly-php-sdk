@@ -8,14 +8,55 @@ declare(strict_types=1);
 
 namespace calendly\calendly\Models\Operations;
 
-
+use \calendly\calendly\Utils\SpeakeasyMetadata;
 class GetOrganizationMembershipsRequest
 {
-	
-    public GetOrganizationMembershipsQueryParams $queryParams;
+    /**
+     * The number of rows to return
+     * 
+     * @var ?float $count
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=count')]
+    public ?float $count = null;
+    
+    /**
+     * Indicates if the results should be filtered by email address
+     * 
+     * @var ?string $email
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=email')]
+    public ?string $email = null;
+    
+    /**
+     * Indicates if the results should be filtered by organization
+     * 
+     * @var ?string $organization
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=organization')]
+    public ?string $organization = null;
+    
+    /**
+     * The token to pass to get the next or previous portion of the collection
+     * 
+     * @var ?string $pageToken
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=page_token')]
+    public ?string $pageToken = null;
+    
+    /**
+     * Indicates if the results should be filtered by user
+     * 
+     * @var ?string $user
+     */
+	#[SpeakeasyMetadata('queryParam:style=form,explode=true,name=user')]
+    public ?string $user = null;
     
 	public function __construct()
 	{
-		$this->queryParams = new \calendly\calendly\Models\Operations\GetOrganizationMembershipsQueryParams();
+		$this->count = null;
+		$this->email = null;
+		$this->organization = null;
+		$this->pageToken = null;
+		$this->user = null;
 	}
 }

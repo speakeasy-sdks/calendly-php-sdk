@@ -8,14 +8,19 @@ declare(strict_types=1);
 
 namespace calendly\calendly\Models\Operations;
 
-
+use \calendly\calendly\Utils\SpeakeasyMetadata;
 class GetUserAvailabilitySchedulesUuidRequest
 {
-	
-    public GetUserAvailabilitySchedulesUuidPathParams $pathParams;
+    /**
+     * The UUID of the availability schedule.
+     * 
+     * @var string $uuid
+     */
+	#[SpeakeasyMetadata('pathParam:style=simple,explode=false,name=uuid')]
+    public string $uuid;
     
 	public function __construct()
 	{
-		$this->pathParams = new \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesUuidPathParams();
+		$this->uuid = "";
 	}
 }

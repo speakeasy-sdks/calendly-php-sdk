@@ -47,11 +47,11 @@ class DataCompliance
      * 
      * Time range can be no greater than 24 months and must occur in the past.
      * 
-     * @param \calendly\calendly\Models\Operations\PostDataComplianceDeletionEventsRequest $request
+     * @param \calendly\calendly\Models\Operations\PostDataComplianceDeletionEventsRequestBody $request
      * @return \calendly\calendly\Models\Operations\PostDataComplianceDeletionEventsResponse
      */
 	public function postDataComplianceDeletionEvents(
-        \calendly\calendly\Models\Operations\PostDataComplianceDeletionEventsRequest $request,
+        \calendly\calendly\Models\Operations\PostDataComplianceDeletionEventsRequestBody $request,
     ): \calendly\calendly\Models\Operations\PostDataComplianceDeletionEventsResponse
     {
         $baseUrl = $this->_serverUrl;
@@ -103,11 +103,11 @@ class DataCompliance
      * 
      * To submit a request to remove invitee data from all previously booked events in your organization, use this endpoint. Requests for data deletion can take up to 7 days to complete.
      * 
-     * @param \calendly\calendly\Models\Operations\PostDataComplianceDeletionInviteesRequest $request
+     * @param \calendly\calendly\Models\Operations\PostDataComplianceDeletionInviteesRequestBody $request
      * @return \calendly\calendly\Models\Operations\PostDataComplianceDeletionInviteesResponse
      */
 	public function postDataComplianceDeletionInvitees(
-        \calendly\calendly\Models\Operations\PostDataComplianceDeletionInviteesRequest $request,
+        \calendly\calendly\Models\Operations\PostDataComplianceDeletionInviteesRequestBody $request,
     ): \calendly\calendly\Models\Operations\PostDataComplianceDeletionInviteesResponse
     {
         $baseUrl = $this->_serverUrl;

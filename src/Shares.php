@@ -45,11 +45,11 @@ class Shares
      * **Note: Any paramater which is not provided in the request body will be copied from the target Event Type.**
      * 
      * 
-     * @param \calendly\calendly\Models\Operations\PostSharesRequest $request
+     * @param \calendly\calendly\Models\Operations\PostSharesRequestBody $request
      * @return \calendly\calendly\Models\Operations\PostSharesResponse
      */
 	public function postShares(
-        \calendly\calendly\Models\Operations\PostSharesRequest $request,
+        \calendly\calendly\Models\Operations\PostSharesRequestBody $request,
     ): \calendly\calendly\Models\Operations\PostSharesResponse
     {
         $baseUrl = $this->_serverUrl;

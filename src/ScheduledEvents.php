@@ -50,7 +50,7 @@ class ScheduledEvents
     ): \calendly\calendly\Models\Operations\DeleteInviteeNoShowResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/invitee_no_shows/{uuid}', \calendly\calendly\Models\Operations\DeleteInviteeNoShowPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/invitee_no_shows/{uuid}', \calendly\calendly\Models\Operations\DeleteInviteeNoShowRequest::class, $request);
         
         $options = ['http_errors' => false];
         
@@ -88,7 +88,7 @@ class ScheduledEvents
     ): \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{event_uuid}/invitees/{invitee_uuid}', \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{event_uuid}/invitees/{invitee_uuid}', \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidRequest::class, $request);
         
         $options = ['http_errors' => false];
         
@@ -136,7 +136,7 @@ class ScheduledEvents
     ): \calendly\calendly\Models\Operations\GetScheduledEventsUuidResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}', \calendly\calendly\Models\Operations\GetScheduledEventsUuidPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}', \calendly\calendly\Models\Operations\GetScheduledEventsUuidRequest::class, $request);
         
         $options = ['http_errors' => false];
         
@@ -184,7 +184,7 @@ class ScheduledEvents
     ): \calendly\calendly\Models\Operations\GetInviteeNoShowResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/invitee_no_shows/{uuid}', \calendly\calendly\Models\Operations\GetInviteeNoShowPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/invitee_no_shows/{uuid}', \calendly\calendly\Models\Operations\GetInviteeNoShowRequest::class, $request);
         
         $options = ['http_errors' => false];
         
@@ -226,10 +226,10 @@ class ScheduledEvents
     ): \calendly\calendly\Models\Operations\GetInviteesResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/invitees', \calendly\calendly\Models\Operations\GetInviteesPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/invitees', \calendly\calendly\Models\Operations\GetInviteesRequest::class, $request);
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetInviteesQueryParams::class, $request->queryParams, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetInviteesRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
@@ -286,7 +286,7 @@ class ScheduledEvents
         $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events');
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetScheduledEventsQueryParams::class, $request->queryParams, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetScheduledEventsRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
@@ -332,10 +332,10 @@ class ScheduledEvents
     ): \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/cancellation', \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/cancellation', \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonRequest::class, $request);
         
         $options = ['http_errors' => false];
-        $body = Utils\Utils::serializeRequestBody($request, "request", "json");
+        $body = Utils\Utils::serializeRequestBody($request, "requestBody", "json");
         $options = array_merge_recursive($options, $body);
         
         $httpResponse = $this->_securityClient->request('POST', $url, $options);
@@ -382,10 +382,10 @@ class ScheduledEvents
     ): \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/cancellation', \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/cancellation', \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartRequest::class, $request);
         
         $options = ['http_errors' => false];
-        $body = Utils\Utils::serializeRequestBody($request, "request", "multipart");
+        $body = Utils\Utils::serializeRequestBody($request, "requestBody", "multipart");
         $options = array_merge_recursive($options, $body);
         
         $httpResponse = $this->_securityClient->request('POST', $url, $options);
@@ -432,10 +432,10 @@ class ScheduledEvents
     ): \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/cancellation', \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationPathParams::class, $request->pathParams);
+        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/cancellation', \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawRequest::class, $request);
         
         $options = ['http_errors' => false];
-        $body = Utils\Utils::serializeRequestBody($request, "request", "raw");
+        $body = Utils\Utils::serializeRequestBody($request, "requestBody", "raw");
         $options = array_merge_recursive($options, $body);
         
         $httpResponse = $this->_securityClient->request('POST', $url, $options);
@@ -474,11 +474,11 @@ class ScheduledEvents
      * 
      * Marks an Invitee as a No Show.
      * 
-     * @param \calendly\calendly\Models\Operations\PostInviteeNoShowRequest $request
+     * @param \calendly\calendly\Models\Operations\PostInviteeNoShowRequestBody $request
      * @return \calendly\calendly\Models\Operations\PostInviteeNoShowResponse
      */
 	public function postInviteeNoShow(
-        \calendly\calendly\Models\Operations\PostInviteeNoShowRequest $request,
+        \calendly\calendly\Models\Operations\PostInviteeNoShowRequestBody $request,
     ): \calendly\calendly\Models\Operations\PostInviteeNoShowResponse
     {
         $baseUrl = $this->_serverUrl;
