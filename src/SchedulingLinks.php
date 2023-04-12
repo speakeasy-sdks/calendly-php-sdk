@@ -45,7 +45,7 @@ class SchedulingLinks
      * @param \calendly\calendly\Models\Operations\PostSchedulingLinksRequestBody $request
      * @return \calendly\calendly\Models\Operations\PostSchedulingLinksResponse
      */
-	public function postSchedulingLinks(
+	public function create(
         \calendly\calendly\Models\Operations\PostSchedulingLinksRequestBody $request,
     ): \calendly\calendly\Models\Operations\PostSchedulingLinksResponse
     {

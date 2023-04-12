@@ -45,24 +45,24 @@ class ActivityLog
      * 
      * Returns a list of activity log entries
      * 
-     * @param \calendly\calendly\Models\Operations\ActivityLogRequest $request
-     * @return \calendly\calendly\Models\Operations\ActivityLogResponse
+     * @param \calendly\calendly\Models\Operations\ListActivityLogRequest $request
+     * @return \calendly\calendly\Models\Operations\ListActivityLogResponse
      */
-	public function activityLog(
-        \calendly\calendly\Models\Operations\ActivityLogRequest $request,
-    ): \calendly\calendly\Models\Operations\ActivityLogResponse
+	public function list(
+        \calendly\calendly\Models\Operations\ListActivityLogRequest $request,
+    ): \calendly\calendly\Models\Operations\ListActivityLogResponse
     {
         $baseUrl = $this->_serverUrl;
         $url = Utils\Utils::generateUrl($baseUrl, '/activity_log_entries');
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\ActivityLogRequest::class, $request, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\ListActivityLogRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
-        $response = new \calendly\calendly\Models\Operations\ActivityLogResponse();
+        $response = new \calendly\calendly\Models\Operations\ListActivityLogResponse();
         $response->statusCode = $httpResponse->getStatusCode();
         $response->contentType = $contentType;
         $response->rawResponse = $httpResponse;
@@ -70,19 +70,19 @@ class ActivityLog
         if ($httpResponse->getStatusCode() === 200) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->activityLog200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ActivityLog200ApplicationJSON', 'json');
+                $response->listActivityLog200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ListActivityLog200ApplicationJSON', 'json');
             }
         }
         else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ActivityLogErrorResponse', 'json');
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ListActivityLogErrorResponse', 'json');
             }
         }
         else if ($httpResponse->getStatusCode() === 403) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->activityLog403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ActivityLog403ApplicationJSON', 'json');
+                $response->listActivityLog403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ListActivityLog403ApplicationJSON', 'json');
             }
         }
 

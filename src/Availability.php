@@ -38,55 +38,6 @@ class Availability
 	}
 	
     /**
-     * List User Availability Schedules
-     * 
-     * Returns the availability schedules of the given user.
-     * 
-     * @param \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesRequest $request
-     * @return \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesResponse
-     */
-	public function getUserAvailabilitySchedules(
-        \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesRequest $request,
-    ): \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesResponse
-    {
-        $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/user_availability_schedules');
-        
-        $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesRequest::class, $request, null));
-        
-        $httpResponse = $this->_securityClient->request('GET', $url, $options);
-        
-        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
-
-        $response = new \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesResponse();
-        $response->statusCode = $httpResponse->getStatusCode();
-        $response->contentType = $contentType;
-        $response->rawResponse = $httpResponse;
-        
-        if ($httpResponse->getStatusCode() === 200) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->getUserAvailabilitySchedules200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetUserAvailabilitySchedules200ApplicationJSON', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesErrorResponse', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 403) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->getUserAvailabilitySchedules403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetUserAvailabilitySchedules403ApplicationJSON', 'json');
-            }
-        }
-
-        return $response;
-    }
-	
-    /**
      * Get User Availability Schedule
      * 
      * This will return the availability schedule of the given UUID.
@@ -94,7 +45,7 @@ class Availability
      * @param \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesUuidRequest $request
      * @return \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesUuidResponse
      */
-	public function getUserAvailabilitySchedulesUuid(
+	public function get(
         \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesUuidRequest $request,
     ): \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesUuidResponse
     {
@@ -137,6 +88,55 @@ class Availability
     }
 	
     /**
+     * List User Availability Schedules
+     * 
+     * Returns the availability schedules of the given user.
+     * 
+     * @param \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesRequest $request
+     * @return \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesResponse
+     */
+	public function getAvailability(
+        \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesRequest $request,
+    ): \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesResponse
+    {
+        $baseUrl = $this->_serverUrl;
+        $url = Utils\Utils::generateUrl($baseUrl, '/user_availability_schedules');
+        
+        $options = ['http_errors' => false];
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesRequest::class, $request, null));
+        
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
+        
+        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
+
+        $response = new \calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesResponse();
+        $response->statusCode = $httpResponse->getStatusCode();
+        $response->contentType = $contentType;
+        $response->rawResponse = $httpResponse;
+        
+        if ($httpResponse->getStatusCode() === 200) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->getUserAvailabilitySchedules200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetUserAvailabilitySchedules200ApplicationJSON', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetUserAvailabilitySchedulesErrorResponse', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 403) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->getUserAvailabilitySchedules403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetUserAvailabilitySchedules403ApplicationJSON', 'json');
+            }
+        }
+
+        return $response;
+    }
+	
+    /**
      * List User Busy Times
      * 
      * Returns an ascending list of user internal and external scheduled events within a specified date range.
@@ -150,7 +150,7 @@ class Availability
      * @param \calendly\calendly\Models\Operations\GetUserBusyTimesRequest $request
      * @return \calendly\calendly\Models\Operations\GetUserBusyTimesResponse
      */
-	public function getUserBusyTimes(
+	public function getBusyTimes(
         \calendly\calendly\Models\Operations\GetUserBusyTimesRequest $request,
     ): \calendly\calendly\Models\Operations\GetUserBusyTimesResponse
     {

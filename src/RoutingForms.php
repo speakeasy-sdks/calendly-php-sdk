@@ -45,7 +45,7 @@ class RoutingForms
      * @param \calendly\calendly\Models\Operations\GetRoutingFormSubmissionsRequest $request
      * @return \calendly\calendly\Models\Operations\GetRoutingFormSubmissionsResponse
      */
-	public function getRoutingFormSubmissions(
+	public function getSubmissions(
         \calendly\calendly\Models\Operations\GetRoutingFormSubmissionsRequest $request,
     ): \calendly\calendly\Models\Operations\GetRoutingFormSubmissionsResponse
     {
@@ -88,7 +88,7 @@ class RoutingForms
      * @param \calendly\calendly\Models\Operations\GetRoutingFormSubmissionsUuidRequest $request
      * @return \calendly\calendly\Models\Operations\GetRoutingFormSubmissionsUuidResponse
      */
-	public function getRoutingFormSubmissionsUuid(
+	public function getSubmissionsByUuid(
         \calendly\calendly\Models\Operations\GetRoutingFormSubmissionsUuidRequest $request,
     ): \calendly\calendly\Models\Operations\GetRoutingFormSubmissionsUuidResponse
     {
@@ -123,49 +123,6 @@ class RoutingForms
     }
 	
     /**
-     * List Routing Forms
-     * 
-     * Get a list of Routing Forms for a specified Organization.
-     * 
-     * @param \calendly\calendly\Models\Operations\GetRoutingFormsRequest $request
-     * @return \calendly\calendly\Models\Operations\GetRoutingFormsResponse
-     */
-	public function getRoutingForms(
-        \calendly\calendly\Models\Operations\GetRoutingFormsRequest $request,
-    ): \calendly\calendly\Models\Operations\GetRoutingFormsResponse
-    {
-        $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/routing_forms');
-        
-        $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetRoutingFormsRequest::class, $request, null));
-        
-        $httpResponse = $this->_securityClient->request('GET', $url, $options);
-        
-        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
-
-        $response = new \calendly\calendly\Models\Operations\GetRoutingFormsResponse();
-        $response->statusCode = $httpResponse->getStatusCode();
-        $response->contentType = $contentType;
-        $response->rawResponse = $httpResponse;
-        
-        if ($httpResponse->getStatusCode() === 200) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->getRoutingForms200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetRoutingForms200ApplicationJSON', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 403 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetRoutingFormsErrorResponse', 'json');
-            }
-        }
-
-        return $response;
-    }
-	
-    /**
      * Get Routing Form
      * 
      * Get a specified Routing Form.
@@ -173,7 +130,7 @@ class RoutingForms
      * @param \calendly\calendly\Models\Operations\GetRoutingFormsUuidRequest $request
      * @return \calendly\calendly\Models\Operations\GetRoutingFormsUuidResponse
      */
-	public function getRoutingFormsUuid(
+	public function getByUuid(
         \calendly\calendly\Models\Operations\GetRoutingFormsUuidRequest $request,
     ): \calendly\calendly\Models\Operations\GetRoutingFormsUuidResponse
     {
@@ -201,6 +158,49 @@ class RoutingForms
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
                 $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetRoutingFormsUuidErrorResponse', 'json');
+            }
+        }
+
+        return $response;
+    }
+	
+    /**
+     * List Routing Forms
+     * 
+     * Get a list of Routing Forms for a specified Organization.
+     * 
+     * @param \calendly\calendly\Models\Operations\ListRoutingFormsRequest $request
+     * @return \calendly\calendly\Models\Operations\ListRoutingFormsResponse
+     */
+	public function list(
+        \calendly\calendly\Models\Operations\ListRoutingFormsRequest $request,
+    ): \calendly\calendly\Models\Operations\ListRoutingFormsResponse
+    {
+        $baseUrl = $this->_serverUrl;
+        $url = Utils\Utils::generateUrl($baseUrl, '/routing_forms');
+        
+        $options = ['http_errors' => false];
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\ListRoutingFormsRequest::class, $request, null));
+        
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
+        
+        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
+
+        $response = new \calendly\calendly\Models\Operations\ListRoutingFormsResponse();
+        $response->statusCode = $httpResponse->getStatusCode();
+        $response->contentType = $contentType;
+        $response->rawResponse = $httpResponse;
+        
+        if ($httpResponse->getStatusCode() === 200) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->listRoutingForms200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ListRoutingForms200ApplicationJSON', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 403 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ListRoutingFormsErrorResponse', 'json');
             }
         }
 

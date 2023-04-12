@@ -14,4 +14,5 @@ enum EventTypePoolingTypeEnum: string
 {
     case ROUND_ROBIN = 'round_robin';
     case COLLECTIVE = 'collective';
+    case NULL = 'null';
 }
