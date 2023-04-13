@@ -45,7 +45,7 @@ class EventTypes
      * @param \calendly\calendly\Models\Operations\GetEventTypesUuidRequest $request
      * @return \calendly\calendly\Models\Operations\GetEventTypesUuidResponse
      */
-	public function getEventTypesUuid(
+	public function get(
         \calendly\calendly\Models\Operations\GetEventTypesUuidRequest $request,
     ): \calendly\calendly\Models\Operations\GetEventTypesUuidResponse
     {
@@ -92,7 +92,7 @@ class EventTypes
      * @param \calendly\calendly\Models\Operations\GetEventTypeAvailableTimesRequest $request
      * @return \calendly\calendly\Models\Operations\GetEventTypeAvailableTimesResponse
      */
-	public function getEventTypeAvailableTimes(
+	public function getAvailableTimes(
         \calendly\calendly\Models\Operations\GetEventTypeAvailableTimesRequest $request,
     ): \calendly\calendly\Models\Operations\GetEventTypeAvailableTimesResponse
     {
@@ -138,24 +138,24 @@ class EventTypes
      * 
      * Either `organization` or `user` are required query params when using this endpoint.
      * 
-     * @param \calendly\calendly\Models\Operations\GetEventTypesRequest $request
-     * @return \calendly\calendly\Models\Operations\GetEventTypesResponse
+     * @param \calendly\calendly\Models\Operations\ListEventTypesRequest $request
+     * @return \calendly\calendly\Models\Operations\ListEventTypesResponse
      */
-	public function getEventTypes(
-        \calendly\calendly\Models\Operations\GetEventTypesRequest $request,
-    ): \calendly\calendly\Models\Operations\GetEventTypesResponse
+	public function list(
+        \calendly\calendly\Models\Operations\ListEventTypesRequest $request,
+    ): \calendly\calendly\Models\Operations\ListEventTypesResponse
     {
         $baseUrl = $this->_serverUrl;
         $url = Utils\Utils::generateUrl($baseUrl, '/event_types');
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetEventTypesRequest::class, $request, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\ListEventTypesRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
-        $response = new \calendly\calendly\Models\Operations\GetEventTypesResponse();
+        $response = new \calendly\calendly\Models\Operations\ListEventTypesResponse();
         $response->statusCode = $httpResponse->getStatusCode();
         $response->contentType = $contentType;
         $response->rawResponse = $httpResponse;
@@ -163,19 +163,19 @@ class EventTypes
         if ($httpResponse->getStatusCode() === 200) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->getEventTypes200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetEventTypes200ApplicationJSON', 'json');
+                $response->listEventTypes200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ListEventTypes200ApplicationJSON', 'json');
             }
         }
         else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetEventTypesErrorResponse', 'json');
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ListEventTypesErrorResponse', 'json');
             }
         }
         else if ($httpResponse->getStatusCode() === 403) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->getEventTypes403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetEventTypes403ApplicationJSON', 'json');
+                $response->listEventTypes403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ListEventTypes403ApplicationJSON', 'json');
             }
         }
 

@@ -51,7 +51,7 @@ class Organizations
      * @param \calendly\calendly\Models\Operations\DeleteOrganizationsUuidMembershipsRequest $request
      * @return \calendly\calendly\Models\Operations\DeleteOrganizationsUuidMembershipsResponse
      */
-	public function deleteOrganizationsUuidMemberships(
+	public function deleteMemberships(
         \calendly\calendly\Models\Operations\DeleteOrganizationsUuidMembershipsRequest $request,
     ): \calendly\calendly\Models\Operations\DeleteOrganizationsUuidMembershipsResponse
     {
@@ -88,61 +88,6 @@ class Organizations
     }
 	
     /**
-     * List Organization Memberships
-     * 
-     * Use this to list the Organization Memberships for all users belonging to an organization, use:
-     * 
-     * * `user` to look up a user's membership in an organization
-     * 
-     * * `organization` to look up all users that belong to the organization
-     * 
-     * This endpoint can also be used to retrieve your organization URI.
-     * 
-     * @param \calendly\calendly\Models\Operations\GetOrganizationMembershipsRequest $request
-     * @return \calendly\calendly\Models\Operations\GetOrganizationMembershipsResponse
-     */
-	public function getOrganizationMemberships(
-        \calendly\calendly\Models\Operations\GetOrganizationMembershipsRequest $request,
-    ): \calendly\calendly\Models\Operations\GetOrganizationMembershipsResponse
-    {
-        $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/organization_memberships');
-        
-        $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetOrganizationMembershipsRequest::class, $request, null));
-        
-        $httpResponse = $this->_securityClient->request('GET', $url, $options);
-        
-        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
-
-        $response = new \calendly\calendly\Models\Operations\GetOrganizationMembershipsResponse();
-        $response->statusCode = $httpResponse->getStatusCode();
-        $response->contentType = $contentType;
-        $response->rawResponse = $httpResponse;
-        
-        if ($httpResponse->getStatusCode() === 200) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->getOrganizationMemberships200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetOrganizationMemberships200ApplicationJSON', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetOrganizationMembershipsErrorResponse', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 403) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse1 = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Shared\ErrorResponse', 'json');
-            }
-        }
-
-        return $response;
-    }
-	
-    /**
      * Get Organization Invitation
      * 
      * Returns an Organization Invitation that was sent to the organization's members.
@@ -150,7 +95,7 @@ class Organizations
      * @param \calendly\calendly\Models\Operations\GetOrganizationsOrgUuidInvitationsUuidRequest $request
      * @return \calendly\calendly\Models\Operations\GetOrganizationsOrgUuidInvitationsUuidResponse
      */
-	public function getOrganizationsOrgUuidInvitationsUuid(
+	public function getInvitations(
         \calendly\calendly\Models\Operations\GetOrganizationsOrgUuidInvitationsUuidRequest $request,
     ): \calendly\calendly\Models\Operations\GetOrganizationsOrgUuidInvitationsUuidResponse
     {
@@ -185,97 +130,6 @@ class Organizations
     }
 	
     /**
-     * List Organization Invitations
-     * 
-     * Returns a list of Organization Invitations that were sent to the organization's members.
-     * 
-     * @param \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsRequest $request
-     * @return \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsResponse
-     */
-	public function getOrganizationsUuidInvitations(
-        \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsRequest $request,
-    ): \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsResponse
-    {
-        $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/organizations/{uuid}/invitations', \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsRequest::class, $request);
-        
-        $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsRequest::class, $request, null));
-        
-        $httpResponse = $this->_securityClient->request('GET', $url, $options);
-        
-        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
-
-        $response = new \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsResponse();
-        $response->statusCode = $httpResponse->getStatusCode();
-        $response->contentType = $contentType;
-        $response->rawResponse = $httpResponse;
-        
-        if ($httpResponse->getStatusCode() === 200) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->getOrganizationsUuidInvitations200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetOrganizationsUuidInvitations200ApplicationJSON', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 403 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsErrorResponse', 'json');
-            }
-        }
-
-        return $response;
-    }
-	
-    /**
-     * Get Organization Membership
-     * 
-     * Returns information about a user's Organization Membership
-     * 
-     * @param \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsRequest $request
-     * @return \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsResponse
-     */
-	public function getOrganizationsUuidMemberships(
-        \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsRequest $request,
-    ): \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsResponse
-    {
-        $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/organization_memberships/{uuid}', \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsRequest::class, $request);
-        
-        $options = ['http_errors' => false];
-        
-        $httpResponse = $this->_securityClient->request('GET', $url, $options);
-        
-        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
-
-        $response = new \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsResponse();
-        $response->statusCode = $httpResponse->getStatusCode();
-        $response->contentType = $contentType;
-        $response->rawResponse = $httpResponse;
-        
-        if ($httpResponse->getStatusCode() === 200) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->getOrganizationsUuidMemberships200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetOrganizationsUuidMemberships200ApplicationJSON', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsErrorResponse', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 403) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse1 = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Shared\ErrorResponse', 'json');
-            }
-        }
-
-        return $response;
-    }
-	
-    /**
      * Invite User to Organization
      * 
      * 	
@@ -284,7 +138,7 @@ class Organizations
      * @param \calendly\calendly\Models\Operations\PostOrganizationsUuidInvitationsRequest $request
      * @return \calendly\calendly\Models\Operations\PostOrganizationsUuidInvitationsResponse
      */
-	public function postOrganizationsUuidInvitations(
+	public function inviteUser(
         \calendly\calendly\Models\Operations\PostOrganizationsUuidInvitationsRequest $request,
     ): \calendly\calendly\Models\Operations\PostOrganizationsUuidInvitationsResponse
     {
@@ -336,6 +190,104 @@ class Organizations
     }
 	
     /**
+     * List Organization Invitations
+     * 
+     * Returns a list of Organization Invitations that were sent to the organization's members.
+     * 
+     * @param \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsRequest $request
+     * @return \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsResponse
+     */
+	public function listInvitations(
+        \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsRequest $request,
+    ): \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsResponse
+    {
+        $baseUrl = $this->_serverUrl;
+        $url = Utils\Utils::generateUrl($baseUrl, '/organizations/{uuid}/invitations', \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsRequest::class, $request);
+        
+        $options = ['http_errors' => false];
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsRequest::class, $request, null));
+        
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
+        
+        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
+
+        $response = new \calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsResponse();
+        $response->statusCode = $httpResponse->getStatusCode();
+        $response->contentType = $contentType;
+        $response->rawResponse = $httpResponse;
+        
+        if ($httpResponse->getStatusCode() === 200) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->getOrganizationsUuidInvitations200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetOrganizationsUuidInvitations200ApplicationJSON', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 403 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetOrganizationsUuidInvitationsErrorResponse', 'json');
+            }
+        }
+
+        return $response;
+    }
+	
+    /**
+     * List Organization Memberships
+     * 
+     * Use this to list the Organization Memberships for all users belonging to an organization, use:
+     * 
+     * * `user` to look up a user's membership in an organization
+     * 
+     * * `organization` to look up all users that belong to the organization
+     * 
+     * This endpoint can also be used to retrieve your organization URI.
+     * 
+     * @param \calendly\calendly\Models\Operations\ListOrganizationMembershipsRequest $request
+     * @return \calendly\calendly\Models\Operations\ListOrganizationMembershipsResponse
+     */
+	public function listMemberships(
+        \calendly\calendly\Models\Operations\ListOrganizationMembershipsRequest $request,
+    ): \calendly\calendly\Models\Operations\ListOrganizationMembershipsResponse
+    {
+        $baseUrl = $this->_serverUrl;
+        $url = Utils\Utils::generateUrl($baseUrl, '/organization_memberships');
+        
+        $options = ['http_errors' => false];
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\ListOrganizationMembershipsRequest::class, $request, null));
+        
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
+        
+        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
+
+        $response = new \calendly\calendly\Models\Operations\ListOrganizationMembershipsResponse();
+        $response->statusCode = $httpResponse->getStatusCode();
+        $response->contentType = $contentType;
+        $response->rawResponse = $httpResponse;
+        
+        if ($httpResponse->getStatusCode() === 200) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->listOrganizationMemberships200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ListOrganizationMemberships200ApplicationJSON', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ListOrganizationMembershipsErrorResponse', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 403) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse1 = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Shared\ErrorResponse', 'json');
+            }
+        }
+
+        return $response;
+    }
+	
+    /**
      * Revoke User's Organization Invitation
      * 
      * Use this to revoke an Organization Invitation to an organization. Once revoked, the invitation link that was sent to the invitee is no longer valid.
@@ -343,7 +295,7 @@ class Organizations
      * @param \calendly\calendly\Models\Operations\RevokeUsersOrganizationInvitationRequest $request
      * @return \calendly\calendly\Models\Operations\RevokeUsersOrganizationInvitationResponse
      */
-	public function revokeUsersOrganizationInvitation(
+	public function revokeInvite(
         \calendly\calendly\Models\Operations\RevokeUsersOrganizationInvitationRequest $request,
     ): \calendly\calendly\Models\Operations\RevokeUsersOrganizationInvitationResponse
     {

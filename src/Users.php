@@ -38,46 +38,6 @@ class Users
 	}
 	
     /**
-     * Get current user
-     * 
-     * Returns basic information about your user account.
-     * 
-     * @return \calendly\calendly\Models\Operations\GetMyUserAccountResponse
-     */
-	public function getMyUserAccount(
-    ): \calendly\calendly\Models\Operations\GetMyUserAccountResponse
-    {
-        $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/users/me');
-        
-        $options = ['http_errors' => false];
-        
-        $httpResponse = $this->_securityClient->request('GET', $url, $options);
-        
-        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
-
-        $response = new \calendly\calendly\Models\Operations\GetMyUserAccountResponse();
-        $response->statusCode = $httpResponse->getStatusCode();
-        $response->contentType = $contentType;
-        $response->rawResponse = $httpResponse;
-        
-        if ($httpResponse->getStatusCode() === 200) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->getMyUserAccount200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetMyUserAccount200ApplicationJSON', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 403 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetMyUserAccountErrorResponse', 'json');
-            }
-        }
-
-        return $response;
-    }
-	
-    /**
      * Get user
      * 
      * Returns information about a specified User.
@@ -85,7 +45,7 @@ class Users
      * @param \calendly\calendly\Models\Operations\GetUserRequest $request
      * @return \calendly\calendly\Models\Operations\GetUserResponse
      */
-	public function getUser(
+	public function get(
         \calendly\calendly\Models\Operations\GetUserRequest $request,
     ): \calendly\calendly\Models\Operations\GetUserResponse
     {
@@ -113,6 +73,94 @@ class Users
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
                 $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetUserErrorResponse', 'json');
+            }
+        }
+
+        return $response;
+    }
+	
+    /**
+     * Get Organization Membership
+     * 
+     * Returns information about a user's Organization Membership
+     * 
+     * @param \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsRequest $request
+     * @return \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsResponse
+     */
+	public function getMemberships(
+        \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsRequest $request,
+    ): \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsResponse
+    {
+        $baseUrl = $this->_serverUrl;
+        $url = Utils\Utils::generateUrl($baseUrl, '/organization_memberships/{uuid}', \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsRequest::class, $request);
+        
+        $options = ['http_errors' => false];
+        
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
+        
+        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
+
+        $response = new \calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsResponse();
+        $response->statusCode = $httpResponse->getStatusCode();
+        $response->contentType = $contentType;
+        $response->rawResponse = $httpResponse;
+        
+        if ($httpResponse->getStatusCode() === 200) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->getOrganizationsUuidMemberships200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetOrganizationsUuidMemberships200ApplicationJSON', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetOrganizationsUuidMembershipsErrorResponse', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 403) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse1 = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Shared\ErrorResponse', 'json');
+            }
+        }
+
+        return $response;
+    }
+	
+    /**
+     * Get current user
+     * 
+     * Returns basic information about your user account.
+     * 
+     * @return \calendly\calendly\Models\Operations\MeResponse
+     */
+	public function me(
+    ): \calendly\calendly\Models\Operations\MeResponse
+    {
+        $baseUrl = $this->_serverUrl;
+        $url = Utils\Utils::generateUrl($baseUrl, '/users/me');
+        
+        $options = ['http_errors' => false];
+        
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
+        
+        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
+
+        $response = new \calendly\calendly\Models\Operations\MeResponse();
+        $response->statusCode = $httpResponse->getStatusCode();
+        $response->contentType = $contentType;
+        $response->rawResponse = $httpResponse;
+        
+        if ($httpResponse->getStatusCode() === 200) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->me200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\Me200ApplicationJSON', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 403 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\MeErrorResponse', 'json');
             }
         }
 

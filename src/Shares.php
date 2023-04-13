@@ -48,7 +48,7 @@ class Shares
      * @param \calendly\calendly\Models\Operations\PostSharesRequestBody $request
      * @return \calendly\calendly\Models\Operations\PostSharesResponse
      */
-	public function postShares(
+	public function create(
         \calendly\calendly\Models\Operations\PostSharesRequestBody $request,
     ): \calendly\calendly\Models\Operations\PostSharesResponse
     {
