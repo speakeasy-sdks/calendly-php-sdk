@@ -38,37 +38,49 @@ class ScheduledEvents
 	}
 	
     /**
-     * Delete Invitee No Show
+     * Cancel Event
      * 
-     * Undoes marking an Invitee as a No Show.
+     * Cancels specified event.
      * 
-     * @param \calendly\calendly\Models\Operations\DeleteInviteeNoShowRequest $request
-     * @return \calendly\calendly\Models\Operations\DeleteInviteeNoShowResponse
+     * @param \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonRequest $request
+     * @return \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonResponse
      */
-	public function deleteInviteeNoShow(
-        \calendly\calendly\Models\Operations\DeleteInviteeNoShowRequest $request,
-    ): \calendly\calendly\Models\Operations\DeleteInviteeNoShowResponse
+	public function cancel(
+        \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonRequest $request,
+    ): \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/invitee_no_shows/{uuid}', \calendly\calendly\Models\Operations\DeleteInviteeNoShowRequest::class, $request);
+        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/cancellation', \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonRequest::class, $request);
         
         $options = ['http_errors' => false];
+        $body = Utils\Utils::serializeRequestBody($request, "requestBody", "json");
+        $options = array_merge_recursive($options, $body);
         
-        $httpResponse = $this->_securityClient->request('DELETE', $url, $options);
+        $httpResponse = $this->_securityClient->request('POST', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
-        $response = new \calendly\calendly\Models\Operations\DeleteInviteeNoShowResponse();
+        $response = new \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonResponse();
         $response->statusCode = $httpResponse->getStatusCode();
         $response->contentType = $contentType;
         $response->rawResponse = $httpResponse;
         
-        if ($httpResponse->getStatusCode() === 204) {
-        }
-        else if ($httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 403 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
+        if ($httpResponse->getStatusCode() === 201) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\DeleteInviteeNoShowErrorResponse', 'json');
+                $response->postScheduledEventsUuidCancellationJSON201ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJSON201ApplicationJSON', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonErrorResponse', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 403) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->postScheduledEventsUuidCancellationJSON403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJSON403ApplicationJSON', 'json');
             }
         }
 
@@ -76,47 +88,146 @@ class ScheduledEvents
     }
 	
     /**
-     * Get Event Invitee
+     * Cancel Event
      * 
-     * Returns information about a specified Invitee (person invited to an event).
+     * Cancels specified event.
      * 
-     * @param \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidRequest $request
-     * @return \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidResponse
+     * @param \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartRequest $request
+     * @return \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartResponse
      */
-	public function getScheduledEventsEventUuidInviteesInviteeUuid(
-        \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidRequest $request,
-    ): \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidResponse
+	public function cancel(
+        \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartRequest $request,
+    ): \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{event_uuid}/invitees/{invitee_uuid}', \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidRequest::class, $request);
+        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/cancellation', \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartRequest::class, $request);
         
         $options = ['http_errors' => false];
+        $body = Utils\Utils::serializeRequestBody($request, "requestBody", "multipart");
+        $options = array_merge_recursive($options, $body);
         
-        $httpResponse = $this->_securityClient->request('GET', $url, $options);
+        $httpResponse = $this->_securityClient->request('POST', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
-        $response = new \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidResponse();
+        $response = new \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartResponse();
         $response->statusCode = $httpResponse->getStatusCode();
         $response->contentType = $contentType;
         $response->rawResponse = $httpResponse;
         
-        if ($httpResponse->getStatusCode() === 200) {
+        if ($httpResponse->getStatusCode() === 201) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->getScheduledEventsEventUuidInviteesInviteeUuid200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuid200ApplicationJSON', 'json');
+                $response->postScheduledEventsUuidCancellationMultipart201ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipart201ApplicationJSON', 'json');
             }
         }
         else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidErrorResponse', 'json');
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartErrorResponse', 'json');
             }
         }
         else if ($httpResponse->getStatusCode() === 403) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse1 = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Shared\ErrorResponse', 'json');
+                $response->postScheduledEventsUuidCancellationMultipart403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipart403ApplicationJSON', 'json');
+            }
+        }
+
+        return $response;
+    }
+	
+    /**
+     * Cancel Event
+     * 
+     * Cancels specified event.
+     * 
+     * @param \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawRequest $request
+     * @return \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawResponse
+     */
+	public function cancel(
+        \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawRequest $request,
+    ): \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawResponse
+    {
+        $baseUrl = $this->_serverUrl;
+        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/cancellation', \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawRequest::class, $request);
+        
+        $options = ['http_errors' => false];
+        $body = Utils\Utils::serializeRequestBody($request, "requestBody", "raw");
+        $options = array_merge_recursive($options, $body);
+        
+        $httpResponse = $this->_securityClient->request('POST', $url, $options);
+        
+        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
+
+        $response = new \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawResponse();
+        $response->statusCode = $httpResponse->getStatusCode();
+        $response->contentType = $contentType;
+        $response->rawResponse = $httpResponse;
+        
+        if ($httpResponse->getStatusCode() === 201) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->postScheduledEventsUuidCancellationRaw201ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRaw201ApplicationJSON', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawErrorResponse', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 403) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->postScheduledEventsUuidCancellationRaw403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRaw403ApplicationJSON', 'json');
+            }
+        }
+
+        return $response;
+    }
+	
+    /**
+     * Create Invitee No Show
+     * 
+     * Marks an Invitee as a No Show.
+     * 
+     * @param \calendly\calendly\Models\Operations\PostInviteeNoShowRequestBody $request
+     * @return \calendly\calendly\Models\Operations\PostInviteeNoShowResponse
+     */
+	public function createNoShow(
+        \calendly\calendly\Models\Operations\PostInviteeNoShowRequestBody $request,
+    ): \calendly\calendly\Models\Operations\PostInviteeNoShowResponse
+    {
+        $baseUrl = $this->_serverUrl;
+        $url = Utils\Utils::generateUrl($baseUrl, '/invitee_no_shows');
+        
+        $options = ['http_errors' => false];
+        $body = Utils\Utils::serializeRequestBody($request, "request", "json");
+        if ($body === null) {
+            throw new \Exception('Request body is required');
+        }
+        $options = array_merge_recursive($options, $body);
+        
+        $httpResponse = $this->_securityClient->request('POST', $url, $options);
+        
+        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
+
+        $response = new \calendly\calendly\Models\Operations\PostInviteeNoShowResponse();
+        $response->statusCode = $httpResponse->getStatusCode();
+        $response->contentType = $contentType;
+        $response->rawResponse = $httpResponse;
+        
+        if ($httpResponse->getStatusCode() === 201) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->postInviteeNoShow201ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostInviteeNoShow201ApplicationJSON', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 403 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostInviteeNoShowErrorResponse', 'json');
             }
         }
 
@@ -131,7 +242,7 @@ class ScheduledEvents
      * @param \calendly\calendly\Models\Operations\GetScheduledEventsUuidRequest $request
      * @return \calendly\calendly\Models\Operations\GetScheduledEventsUuidResponse
      */
-	public function getScheduledEventsUuid(
+	public function getEventByUuid(
         \calendly\calendly\Models\Operations\GetScheduledEventsUuidRequest $request,
     ): \calendly\calendly\Models\Operations\GetScheduledEventsUuidResponse
     {
@@ -165,48 +276,6 @@ class ScheduledEvents
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
                 $response->getScheduledEventsUuid403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetScheduledEventsUuid403ApplicationJSON', 'json');
-            }
-        }
-
-        return $response;
-    }
-	
-    /**
-     * Get Invitee No Show
-     * 
-     * Returns information about a specified Invitee No Show.
-     * 
-     * @param \calendly\calendly\Models\Operations\GetInviteeNoShowRequest $request
-     * @return \calendly\calendly\Models\Operations\GetInviteeNoShowResponse
-     */
-	public function getInviteeNoShow(
-        \calendly\calendly\Models\Operations\GetInviteeNoShowRequest $request,
-    ): \calendly\calendly\Models\Operations\GetInviteeNoShowResponse
-    {
-        $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/invitee_no_shows/{uuid}', \calendly\calendly\Models\Operations\GetInviteeNoShowRequest::class, $request);
-        
-        $options = ['http_errors' => false];
-        
-        $httpResponse = $this->_securityClient->request('GET', $url, $options);
-        
-        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
-
-        $response = new \calendly\calendly\Models\Operations\GetInviteeNoShowResponse();
-        $response->statusCode = $httpResponse->getStatusCode();
-        $response->contentType = $contentType;
-        $response->rawResponse = $httpResponse;
-        
-        if ($httpResponse->getStatusCode() === 200) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->getInviteeNoShow200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetInviteeNoShow200ApplicationJSON', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 403 or $httpResponse->getStatusCode() === 404) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetInviteeNoShowErrorResponse', 'json');
             }
         }
 
@@ -263,6 +332,96 @@ class ScheduledEvents
     }
 	
     /**
+     * Get Event Invitee
+     * 
+     * Returns information about a specified Invitee (person invited to an event).
+     * 
+     * @param \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidRequest $request
+     * @return \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidResponse
+     */
+	public function getInviteesByUuid(
+        \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidRequest $request,
+    ): \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidResponse
+    {
+        $baseUrl = $this->_serverUrl;
+        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{event_uuid}/invitees/{invitee_uuid}', \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidRequest::class, $request);
+        
+        $options = ['http_errors' => false];
+        
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
+        
+        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
+
+        $response = new \calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidResponse();
+        $response->statusCode = $httpResponse->getStatusCode();
+        $response->contentType = $contentType;
+        $response->rawResponse = $httpResponse;
+        
+        if ($httpResponse->getStatusCode() === 200) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->getScheduledEventsEventUuidInviteesInviteeUuid200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuid200ApplicationJSON', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetScheduledEventsEventUuidInviteesInviteeUuidErrorResponse', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 403) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse1 = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Shared\ErrorResponse', 'json');
+            }
+        }
+
+        return $response;
+    }
+	
+    /**
+     * Get Invitee No Show
+     * 
+     * Returns information about a specified Invitee No Show.
+     * 
+     * @param \calendly\calendly\Models\Operations\GetInviteeNoShowRequest $request
+     * @return \calendly\calendly\Models\Operations\GetInviteeNoShowResponse
+     */
+	public function getNoShow(
+        \calendly\calendly\Models\Operations\GetInviteeNoShowRequest $request,
+    ): \calendly\calendly\Models\Operations\GetInviteeNoShowResponse
+    {
+        $baseUrl = $this->_serverUrl;
+        $url = Utils\Utils::generateUrl($baseUrl, '/invitee_no_shows/{uuid}', \calendly\calendly\Models\Operations\GetInviteeNoShowRequest::class, $request);
+        
+        $options = ['http_errors' => false];
+        
+        $httpResponse = $this->_securityClient->request('GET', $url, $options);
+        
+        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
+
+        $response = new \calendly\calendly\Models\Operations\GetInviteeNoShowResponse();
+        $response->statusCode = $httpResponse->getStatusCode();
+        $response->contentType = $contentType;
+        $response->rawResponse = $httpResponse;
+        
+        if ($httpResponse->getStatusCode() === 200) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->getInviteeNoShow200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetInviteeNoShow200ApplicationJSON', 'json');
+            }
+        }
+        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 403 or $httpResponse->getStatusCode() === 404) {
+            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
+                $serializer = Utils\JSON::createSerializer();
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetInviteeNoShowErrorResponse', 'json');
+            }
+        }
+
+        return $response;
+    }
+	
+    /**
      * List Events
      * 
      * Returns a list of  Events.
@@ -275,24 +434,24 @@ class ScheduledEvents
      * 
      * * `user` can only be used alone when requesting your own personal events. This will return your events within any organization that you are currently in or were a part of in the past.
      * 
-     * @param \calendly\calendly\Models\Operations\GetScheduledEventsRequest $request
-     * @return \calendly\calendly\Models\Operations\GetScheduledEventsResponse
+     * @param \calendly\calendly\Models\Operations\ListScheduledEventsRequest $request
+     * @return \calendly\calendly\Models\Operations\ListScheduledEventsResponse
      */
-	public function getScheduledEvents(
-        \calendly\calendly\Models\Operations\GetScheduledEventsRequest $request,
-    ): \calendly\calendly\Models\Operations\GetScheduledEventsResponse
+	public function list(
+        \calendly\calendly\Models\Operations\ListScheduledEventsRequest $request,
+    ): \calendly\calendly\Models\Operations\ListScheduledEventsResponse
     {
         $baseUrl = $this->_serverUrl;
         $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events');
         
         $options = ['http_errors' => false];
-        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\GetScheduledEventsRequest::class, $request, null));
+        $options = array_merge_recursive($options, Utils\Utils::getQueryParams(\calendly\calendly\Models\Operations\ListScheduledEventsRequest::class, $request, null));
         
         $httpResponse = $this->_securityClient->request('GET', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
-        $response = new \calendly\calendly\Models\Operations\GetScheduledEventsResponse();
+        $response = new \calendly\calendly\Models\Operations\ListScheduledEventsResponse();
         $response->statusCode = $httpResponse->getStatusCode();
         $response->contentType = $contentType;
         $response->rawResponse = $httpResponse;
@@ -300,19 +459,19 @@ class ScheduledEvents
         if ($httpResponse->getStatusCode() === 200) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->getScheduledEvents200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetScheduledEvents200ApplicationJSON', 'json');
+                $response->listScheduledEvents200ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ListScheduledEvents200ApplicationJSON', 'json');
             }
         }
         else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetScheduledEventsErrorResponse', 'json');
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ListScheduledEventsErrorResponse', 'json');
             }
         }
         else if ($httpResponse->getStatusCode() === 403) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->getScheduledEvents403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\GetScheduledEvents403ApplicationJSON', 'json');
+                $response->listScheduledEvents403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\ListScheduledEvents403ApplicationJSON', 'json');
             }
         }
 
@@ -320,196 +479,37 @@ class ScheduledEvents
     }
 	
     /**
-     * Cancel Event
+     * Delete Invitee No Show
      * 
-     * Cancels specified event.
+     * Undoes marking an Invitee as a No Show.
      * 
-     * @param \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonRequest $request
-     * @return \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonResponse
+     * @param \calendly\calendly\Models\Operations\DeleteInviteeNoShowRequest $request
+     * @return \calendly\calendly\Models\Operations\DeleteInviteeNoShowResponse
      */
-	public function postScheduledEventsUuidCancellationJson(
-        \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonRequest $request,
-    ): \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonResponse
+	public function unmarkNoShow(
+        \calendly\calendly\Models\Operations\DeleteInviteeNoShowRequest $request,
+    ): \calendly\calendly\Models\Operations\DeleteInviteeNoShowResponse
     {
         $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/cancellation', \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonRequest::class, $request);
+        $url = Utils\Utils::generateUrl($baseUrl, '/invitee_no_shows/{uuid}', \calendly\calendly\Models\Operations\DeleteInviteeNoShowRequest::class, $request);
         
         $options = ['http_errors' => false];
-        $body = Utils\Utils::serializeRequestBody($request, "requestBody", "json");
-        $options = array_merge_recursive($options, $body);
         
-        $httpResponse = $this->_securityClient->request('POST', $url, $options);
+        $httpResponse = $this->_securityClient->request('DELETE', $url, $options);
         
         $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
 
-        $response = new \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonResponse();
+        $response = new \calendly\calendly\Models\Operations\DeleteInviteeNoShowResponse();
         $response->statusCode = $httpResponse->getStatusCode();
         $response->contentType = $contentType;
         $response->rawResponse = $httpResponse;
         
-        if ($httpResponse->getStatusCode() === 201) {
+        if ($httpResponse->getStatusCode() === 204) {
+        }
+        else if ($httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 403 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
             if (Utils\Utils::matchContentType($contentType, 'application/json')) {
                 $serializer = Utils\JSON::createSerializer();
-                $response->postScheduledEventsUuidCancellationJSON201ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJSON201ApplicationJSON', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJsonErrorResponse', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 403) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->postScheduledEventsUuidCancellationJSON403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationJSON403ApplicationJSON', 'json');
-            }
-        }
-
-        return $response;
-    }
-	
-    /**
-     * Cancel Event
-     * 
-     * Cancels specified event.
-     * 
-     * @param \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartRequest $request
-     * @return \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartResponse
-     */
-	public function postScheduledEventsUuidCancellationMultipart(
-        \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartRequest $request,
-    ): \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartResponse
-    {
-        $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/cancellation', \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartRequest::class, $request);
-        
-        $options = ['http_errors' => false];
-        $body = Utils\Utils::serializeRequestBody($request, "requestBody", "multipart");
-        $options = array_merge_recursive($options, $body);
-        
-        $httpResponse = $this->_securityClient->request('POST', $url, $options);
-        
-        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
-
-        $response = new \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartResponse();
-        $response->statusCode = $httpResponse->getStatusCode();
-        $response->contentType = $contentType;
-        $response->rawResponse = $httpResponse;
-        
-        if ($httpResponse->getStatusCode() === 201) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->postScheduledEventsUuidCancellationMultipart201ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipart201ApplicationJSON', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipartErrorResponse', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 403) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->postScheduledEventsUuidCancellationMultipart403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationMultipart403ApplicationJSON', 'json');
-            }
-        }
-
-        return $response;
-    }
-	
-    /**
-     * Cancel Event
-     * 
-     * Cancels specified event.
-     * 
-     * @param \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawRequest $request
-     * @return \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawResponse
-     */
-	public function postScheduledEventsUuidCancellationRaw(
-        \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawRequest $request,
-    ): \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawResponse
-    {
-        $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/scheduled_events/{uuid}/cancellation', \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawRequest::class, $request);
-        
-        $options = ['http_errors' => false];
-        $body = Utils\Utils::serializeRequestBody($request, "requestBody", "raw");
-        $options = array_merge_recursive($options, $body);
-        
-        $httpResponse = $this->_securityClient->request('POST', $url, $options);
-        
-        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
-
-        $response = new \calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawResponse();
-        $response->statusCode = $httpResponse->getStatusCode();
-        $response->contentType = $contentType;
-        $response->rawResponse = $httpResponse;
-        
-        if ($httpResponse->getStatusCode() === 201) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->postScheduledEventsUuidCancellationRaw201ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRaw201ApplicationJSON', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRawErrorResponse', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 403) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->postScheduledEventsUuidCancellationRaw403ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostScheduledEventsUuidCancellationRaw403ApplicationJSON', 'json');
-            }
-        }
-
-        return $response;
-    }
-	
-    /**
-     * Create Invitee No Show
-     * 
-     * Marks an Invitee as a No Show.
-     * 
-     * @param \calendly\calendly\Models\Operations\PostInviteeNoShowRequestBody $request
-     * @return \calendly\calendly\Models\Operations\PostInviteeNoShowResponse
-     */
-	public function postInviteeNoShow(
-        \calendly\calendly\Models\Operations\PostInviteeNoShowRequestBody $request,
-    ): \calendly\calendly\Models\Operations\PostInviteeNoShowResponse
-    {
-        $baseUrl = $this->_serverUrl;
-        $url = Utils\Utils::generateUrl($baseUrl, '/invitee_no_shows');
-        
-        $options = ['http_errors' => false];
-        $body = Utils\Utils::serializeRequestBody($request, "request", "json");
-        if ($body === null) {
-            throw new \Exception('Request body is required');
-        }
-        $options = array_merge_recursive($options, $body);
-        
-        $httpResponse = $this->_securityClient->request('POST', $url, $options);
-        
-        $contentType = $httpResponse->getHeader('Content-Type')[0] ?? '';
-
-        $response = new \calendly\calendly\Models\Operations\PostInviteeNoShowResponse();
-        $response->statusCode = $httpResponse->getStatusCode();
-        $response->contentType = $contentType;
-        $response->rawResponse = $httpResponse;
-        
-        if ($httpResponse->getStatusCode() === 201) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->postInviteeNoShow201ApplicationJSONObject = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostInviteeNoShow201ApplicationJSON', 'json');
-            }
-        }
-        else if ($httpResponse->getStatusCode() === 400 or $httpResponse->getStatusCode() === 401 or $httpResponse->getStatusCode() === 403 or $httpResponse->getStatusCode() === 404 or $httpResponse->getStatusCode() === 500) {
-            if (Utils\Utils::matchContentType($contentType, 'application/json')) {
-                $serializer = Utils\JSON::createSerializer();
-                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\PostInviteeNoShowErrorResponse', 'json');
+                $response->errorResponse = $serializer->deserialize((string)$httpResponse->getBody(), 'calendly\calendly\Models\Operations\DeleteInviteeNoShowErrorResponse', 'json');
             }
         }
 

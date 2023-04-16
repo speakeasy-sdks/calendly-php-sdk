@@ -13,4 +13,5 @@ namespace calendly\calendly\Models\Shared;
 enum RoutingFormSubmissionSubmitterTypeEnum: string
 {
     case INVITEE = 'Invitee';
+    case NULL = 'null';
 }
