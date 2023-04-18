@@ -29,7 +29,44 @@ composer update
 <!-- End SDK Installation -->
 
 ## SDK Example Usage
-<!-- Start SDK Example Usage -->
+```php
+<?php
+
+declare(strict_types=1);
+
+use calendly\calendly\SDK;
+use \calendly\calendly\Models\Shared\Security;
+use \calendly\calendly\Models\Operations\ListScheduledEventsRequest;
+use \calendly\calendly\Models\Operations\ListScheduledEventsStatusEnum;
+
+$security = new Security();
+$security->oauth2 = 'Bearer YOUR_ACCESS_TOKEN_HERE';
+
+$sdk = SDK::builder()
+    ->setSecurity($security);
+    ->build();
+
+try {
+    $request = new ListScheduledEventsRequest();
+    $request->count = 5488.14;
+    $request->inviteeEmail = 'alice@example.com';
+    $request->maxStartTime = 'provident';
+    $request->minStartTime = 'distinctio';
+    $request->organization = 'https://api.calendly.com/organizations/EBHAAFHDCAEQTSEZ';
+    $request->pageToken = 'quibusdam';
+    $request->sort = 'unde';
+    $request->status = ListScheduledEventsStatusEnum::CANCELED;
+    $request->user = 'https://api.calendly.com/users/EBHAAFHDCAEQTSEZ';
+
+    $response = $sdk->scheduledEvents->list($request);
+
+    if ($response->listScheduledEvents200ApplicationJSONObject !== null) {
+        // handle response
+    }
+} catch (Exception $e) {
+    // handle exception
+}
+```<!-- Start SDK Example Usage -->
 
 <!-- End SDK Example Usage -->
 
@@ -39,74 +76,74 @@ composer update
 
 ### activityLog
 
-* `activityLog` - List activity log entries
+* `list` - List activity log entries
 
 ### availability
 
-* `getUserAvailabilitySchedules` - List User Availability Schedules
-* `getUserAvailabilitySchedulesUuid` - Get User Availability Schedule
-* `getUserBusyTimes` - List User Busy Times
+* `get` - Get User Availability Schedule
+* `getAvailability` - List User Availability Schedules
+* `getBusyTimes` - List User Busy Times
 
 ### dataCompliance
 
-* `postDataComplianceDeletionEvents` - Delete Scheduled Event Data
-* `postDataComplianceDeletionInvitees` - Delete Invitee Data
+* `createDeletionEvent` - Delete Scheduled Event Data
+* `deleteInviteeData` - Delete Invitee Data
 
 ### eventTypes
 
-* `getEventTypesUuid` - Get Event Type
-* `getEventTypeAvailableTimes` - List Event Type Available Times
-* `getEventTypes` - List User's Event Types
+* `get` - Get Event Type
+* `getAvailableTimes` - List Event Type Available Times
+* `list` - List User's Event Types
 
 ### organizations
 
-* `deleteOrganizationsUuidMemberships` - Remove User from Organization
-* `getOrganizationMemberships` - List Organization Memberships
-* `getOrganizationsOrgUuidInvitationsUuid` - Get Organization Invitation
-* `getOrganizationsUuidInvitations` - List Organization Invitations
-* `getOrganizationsUuidMemberships` - Get Organization Membership
-* `postOrganizationsUuidInvitations` - Invite User to Organization
-* `revokeUsersOrganizationInvitation` - Revoke User's Organization Invitation
+* `deleteMemberships` - Remove User from Organization
+* `getInvitations` - Get Organization Invitation
+* `inviteUser` - Invite User to Organization
+* `listInvitations` - List Organization Invitations
+* `listMemberships` - List Organization Memberships
+* `revokeInvite` - Revoke User's Organization Invitation
 
 ### routingForms
 
-* `getRoutingFormSubmissions` - List Routing Form Submissions
-* `getRoutingFormSubmissionsUuid` - Get Routing Form Submission
-* `getRoutingForms` - List Routing Forms
-* `getRoutingFormsUuid` - Get Routing Form
+* `getSubmissions` - List Routing Form Submissions
+* `getSubmissionsByUuid` - Get Routing Form Submission
+* `getByUuid` - Get Routing Form
+* `list` - List Routing Forms
 
 ### scheduledEvents
 
-* `deleteInviteeNoShow` - Delete Invitee No Show
-* `getScheduledEventsEventUuidInviteesInviteeUuid` - Get Event Invitee
-* `getScheduledEventsUuid` - Get Event
-* `getInviteeNoShow` - Get Invitee No Show
+* `cancel` - Cancel Event
+* `cancel` - Cancel Event
+* `cancel` - Cancel Event
+* `createNoShow` - Create Invitee No Show
+* `getEventByUuid` - Get Event
 * `getInvitees` - List Event Invitees
-* `getScheduledEvents` - List Events
-* `postScheduledEventsUuidCancellationJson` - Cancel Event
-* `postScheduledEventsUuidCancellationMultipart` - Cancel Event
-* `postScheduledEventsUuidCancellationRaw` - Cancel Event
-* `postInviteeNoShow` - Create Invitee No Show
+* `getInviteesByUuid` - Get Event Invitee
+* `getNoShow` - Get Invitee No Show
+* `list` - List Events
+* `unmarkNoShow` - Delete Invitee No Show
 
 ### schedulingLinks
 
-* `postSchedulingLinks` - Create Single-Use Scheduling Link
+* `create` - Create Single-Use Scheduling Link
 
 ### shares
 
-* `postShares` - Create Share
+* `create` - Create Share
 
 ### users
 
-* `getMyUserAccount` - Get current user
-* `getUser` - Get user
+* `get` - Get user
+* `getMemberships` - Get Organization Membership
+* `me` - Get current user
 
 ### webhooks
 
-* `deleteUsersUserUuidWebhooksWebhookUuid` - Delete Webhook Subscription
-* `getUsersUserUuidWebhooksWebhookUuid` - Get Webhook Subscription
-* `getWebhooks` - List Webhook Subscriptions
-* `postUsersUuidWebhooks` - Create Webhook Subscription
+* `create` - Create Webhook Subscription
+* `delete` - Delete Webhook Subscription
+* `get` - Get Webhook Subscription
+* `list` - List Webhook Subscriptions
 <!-- End SDK Available Operations -->
 
 ### SDK Generated by [Speakeasy](https://docs.speakeasyapi.dev/docs/using-speakeasy/client-sdks)
