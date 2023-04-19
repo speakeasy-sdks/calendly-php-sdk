@@ -50,7 +50,7 @@ class DataCompliance
      * @param \calendly\calendly\Models\Operations\PostDataComplianceDeletionEventsRequestBody $request
      * @return \calendly\calendly\Models\Operations\PostDataComplianceDeletionEventsResponse
      */
-	public function postDataComplianceDeletionEvents(
+	public function createDeletionEvent(
         \calendly\calendly\Models\Operations\PostDataComplianceDeletionEventsRequestBody $request,
     ): \calendly\calendly\Models\Operations\PostDataComplianceDeletionEventsResponse
     {
@@ -106,7 +106,7 @@ class DataCompliance
      * @param \calendly\calendly\Models\Operations\PostDataComplianceDeletionInviteesRequestBody $request
      * @return \calendly\calendly\Models\Operations\PostDataComplianceDeletionInviteesResponse
      */
-	public function postDataComplianceDeletionInvitees(
+	public function deleteInviteeData(
         \calendly\calendly\Models\Operations\PostDataComplianceDeletionInviteesRequestBody $request,
     ): \calendly\calendly\Models\Operations\PostDataComplianceDeletionInviteesResponse
     {
